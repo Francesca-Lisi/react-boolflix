@@ -1,8 +1,10 @@
-
+import SearchBar from "./SearchBar"
 
 const Filters = () => {
   return (
-    <div>Filters</div>
+    <div className="d-flex align-items-center">
+      <SearchBar />
+    </div>
   )
 }
 
