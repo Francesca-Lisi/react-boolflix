@@ -1,8 +1,13 @@
-import React from 'react'
+import { GlobalProvider } from "./context/GlobalContent"
+import Header from './Header'
+import MainSection from './MainSection'
 
 const App = () => {
   return (
-    <div>App</div>
+    <GlobalProvider>
+      <Header />
+      <MainSection />
+    </GlobalProvider>
   )
 }
 
