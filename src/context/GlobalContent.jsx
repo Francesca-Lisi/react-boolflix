@@ -1,26 +1,45 @@
 import { useState, useContext, createContext } from 'react';
 import axios from 'axios';
 
+
 const GlobalContext = createContext();
 
 const GlobalProvider = ({ children }) => {
 
-  const apiUrl = 'https://api.themoviedb.org/3'
-  const apiKey = '/a8100f91c8dd197e66a43b49fd62beb3'
+  const apiUrl = import.meta.env.VITE_API_KEY
+  const apiKey = import.meta.env.VITE_BASE_API_URL
 
-  const [movies, setMovies] = useState([])
+  const initialResults = {
+    movie: [],
+    tv: []
+  }
+
+  const [searchResults, setSearchResults] = useState(initialResults)
+
+  const search = (type) => {
 
 
+    const params = {
+      apiKey,
+      query: 'simpson',
+      language: 'en-EN'
+    }
 
-  const fetchMovies = () => {
-    axios.get(`${apiUrl}/search/movie${apiKey}&query=ciao`)
+    axios.get(`${apiUrl}search/${type}`, { params })
       .then(res => {
-        setMovies(res.data)
+        console.log(res.data)
+      })
+
+      .catch(err => {
+        console.log('Errore: ', err.message)
       })
   }
-  console.log(res.data)
+
+  const value = { search }
+
+
   return (
-    <GlobalContext.Provider value={{ movies, fetchMovies }}>
+    <GlobalContext.Provider value={value}>
       {children}
     </GlobalContext.Provider>
   )
